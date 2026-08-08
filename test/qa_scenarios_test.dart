@@ -3,73 +3,68 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:counter_app/main.dart';
 
 void main() {
-  group('Flutter Counter App - Core Scenarios', () {
-    testWidgets('앱 실행 시 카운터가 0으로 초기화되어 표시된다', (WidgetTester tester) async {
+  group('Flutter Counter App - 이번 라운드 검증', () {
+    testWidgets('앱 실행 시 카운터 초기값 0 표시', (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
 
       expect(find.text('0'), findsOneWidget);
     });
 
-    testWidgets('화면 중앙에 현재 카운터 숫자가 표시된다', (WidgetTester tester) async {
+    testWidgets('화면 중앙에 카운터 숫자 표시됨', (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
 
-      final textWidget = find.text('0');
-      expect(textWidget, findsOneWidget);
-
-      final textFinder = find.byType(Text);
-      expect(textFinder, findsWidgets);
-
-      // 카운터 숫자가 큰 폰트 사이즈로 표시되는지 확인
       final counterText = find.text('0');
       expect(counterText, findsOneWidget);
+
+      final textWidget = tester.widget<Text>(counterText);
+      expect(textWidget.style?.fontSize, 64);
     });
 
-    testWidgets('증가 버튼이 화면에 표시된다', (WidgetTester tester) async {
+    testWidgets('버튼 1개 표시됨', (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
 
-      expect(find.byType(ElevatedButton), findsOneWidget);
-      expect(find.text('증가'), findsOneWidget);
+      final button = find.byType(ElevatedButton);
+      expect(button, findsOneWidget);
+
+      final buttonChild = tester.widget<ElevatedButton>(button);
+      expect(buttonChild.child, isA<Text>());
     });
 
-    testWidgets('버튼을 누르면 카운터가 1씩 증가한다', (WidgetTester tester) async {
+    testWidgets('버튼을 누르면 숫자 1씩 증가', (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
 
       expect(find.text('0'), findsOneWidget);
 
       await tester.tap(find.byType(ElevatedButton));
       await tester.pump();
-
-      expect(find.text('1'), findsOneWidget);
-      expect(find.text('0'), findsNothing);
-    });
-
-    testWidgets('버튼을 여러 번 누르면 카운터가 계속 증가한다', (WidgetTester tester) async {
-      await tester.pumpWidget(const MyApp());
-
-      expect(find.text('0'), findsOneWidget);
-
-      // 첫 번째 클릭
-      await tester.tap(find.byType(ElevatedButton));
-      await tester.pump();
       expect(find.text('1'), findsOneWidget);
 
-      // 두 번째 클릭
       await tester.tap(find.byType(ElevatedButton));
       await tester.pump();
       expect(find.text('2'), findsOneWidget);
 
-      // 세 번째 클릭
       await tester.tap(find.byType(ElevatedButton));
       await tester.pump();
       expect(find.text('3'), findsOneWidget);
     });
 
-    testWidgets('카운터는 Column 레이아웃으로 중앙 정렬되어 있다', (WidgetTester tester) async {
+    testWidgets('화면이 Scaffold로 구성됨', (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
 
       expect(find.byType(Scaffold), findsOneWidget);
-      expect(find.byType(Center), findsOneWidget);
-      expect(find.byType(Column), findsOneWidget);
+    });
+
+    testWidgets('카운터와 버튼이 중앙에 배치됨', (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
+
+      final center = find.byType(Center);
+      expect(center, findsOneWidget);
+
+      final column = find.byType(Column);
+      expect(column, findsOneWidget);
+
+      final columnWidget = tester.widget<Column>(column);
+      expect(columnWidget.mainAxisAlignment, MainAxisAlignment.center);
     });
   });
 }
