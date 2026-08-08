@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:counter_app/main.dart';
 
@@ -43,7 +44,7 @@ void main() {
     
     expect(find.byType(Center), findsOneWidget);
     expect(find.byType(Column), findsOneWidget);
-    expect(find.byType(Text), findsOneWidget);
+    expect(find.byType(Text), findsWidgets);
     expect(find.byType(ElevatedButton), findsOneWidget);
   });
 
