@@ -39,27 +39,27 @@ class _CounterPageState extends State<CounterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'You have pushed the button this many times:',
-              style: TextStyle(fontSize: 16, color: Color(0xFF333333)),
-              textAlign: TextAlign.center,
-            ),
             Text(
               '$_counter',
               style: const TextStyle(
-                fontSize: 80,
+                fontSize: 64,
                 fontWeight: FontWeight.w200,
                 color: Color(0xFF333333),
               ),
             ),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: () => setState(() => _counter++),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF6200EE),
+                foregroundColor: const Color(0xFFFFFFFF),
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                textStyle: const TextStyle(fontSize: 18),
+              ),
+              child: const Text('증가'),
+            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => setState(() => _counter++),
-        backgroundColor: const Color(0xFF6200EE),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
