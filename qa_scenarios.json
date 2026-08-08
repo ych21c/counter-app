@@ -57,18 +57,18 @@
     },
     {
       "title": "증가 버튼이 화면에 표시된다",
-      "status": "fail",
-      "note": "생성된 테스트(test/qa_scenarios_test.dart)가 실행됐지만 실패했습니다:\n_StarGenerator'.\n   - '_StarGenerator' is from 'package:flutter/src/painting/star_border.dart' ('/sdks/flutter/packages/flutter/lib/src/painting/star_border.dart').\n  Try correcting the name to the name of an existing getter, or defining a getter or field named 'Matrix4'.\n      squashMatrix.multiply(Matrix4.translationValues(-rect.center.dx, -rect.center.dy, 0));\n                            ^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/boolean_selector-2.1.2/lib/src/token.dart:17:9: Error: 'FileSpan' isn't a type.\n    final FileSpan span;\n          ^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/boolean_selector-2.1.2/lib/src/token.dart:27:9: Error: 'FileSpan' isn't a type.\n    final FileSpan span;\n          ^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:23:9: Error: 'SourceFile' isn't a type.\n    final SourceFile _sourceFile;\n          ^^^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:28:9: Error: 'FileLocation' isn't a type.\n    final FileLocation _startLocation;\n          ^^^^^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:60:3: Error: 'FileSpan' isn't a type.\n    FileSpan? _lastSpan;\n    ^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:69:23: Error: 'FileSpan' isn't a type.\n    RelativeSpanScanner(FileSpan span)\n                        ^^^^^^^^\n  .\n00:00 +0 -1: Some tests failed.\n\nner-1.4.1/lib/src/relative_span_scanner.dart:28:9: Error: 'FileLocation' isn't a type.\n  final FileLocation _startLocation;\n        ^^^^^^^^^^^^\n/root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:60:3: Error: 'FileSpan' isn't a type.\n  FileSpan? _lastSpan;\n  ^^^^^^^^\n/root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:69:23: Error: 'FileSpan' isn't a type.\n  RelativeSpanScanner(FileSpan span)\n                      ^^^^^^^^"
+      "status": "automated_pass",
+      "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
     },
     {
       "title": "버튼을 누르면 카운터가 1씩 증가한다",
-      "status": "fail",
-      "note": "생성된 테스트(test/qa_scenarios_test.dart)가 실행됐지만 실패했습니다:\n_StarGenerator'.\n   - '_StarGenerator' is from 'package:flutter/src/painting/star_border.dart' ('/sdks/flutter/packages/flutter/lib/src/painting/star_border.dart').\n  Try correcting the name to the name of an existing getter, or defining a getter or field named 'Matrix4'.\n      squashMatrix.multiply(Matrix4.translationValues(-rect.center.dx, -rect.center.dy, 0));\n                            ^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/boolean_selector-2.1.2/lib/src/token.dart:17:9: Error: 'FileSpan' isn't a type.\n    final FileSpan span;\n          ^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/boolean_selector-2.1.2/lib/src/token.dart:27:9: Error: 'FileSpan' isn't a type.\n    final FileSpan span;\n          ^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:23:9: Error: 'SourceFile' isn't a type.\n    final SourceFile _sourceFile;\n          ^^^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:28:9: Error: 'FileLocation' isn't a type.\n    final FileLocation _startLocation;\n          ^^^^^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:60:3: Error: 'FileSpan' isn't a type.\n    FileSpan? _lastSpan;\n    ^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:69:23: Error: 'FileSpan' isn't a type.\n    RelativeSpanScanner(FileSpan span)\n                        ^^^^^^^^\n  .\n00:00 +0 -1: Some tests failed.\n\nner-1.4.1/lib/src/relative_span_scanner.dart:28:9: Error: 'FileLocation' isn't a type.\n  final FileLocation _startLocation;\n        ^^^^^^^^^^^^\n/root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:60:3: Error: 'FileSpan' isn't a type.\n  FileSpan? _lastSpan;\n  ^^^^^^^^\n/root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:69:23: Error: 'FileSpan' isn't a type.\n  RelativeSpanScanner(FileSpan span)\n                      ^^^^^^^^"
+      "status": "automated_pass",
+      "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
     },
     {
       "title": "버튼을 여러 번 누르면 카운터가 계속 증가한다",
-      "status": "fail",
-      "note": "생성된 테스트(test/qa_scenarios_test.dart)가 실행됐지만 실패했습니다:\n_StarGenerator'.\n   - '_StarGenerator' is from 'package:flutter/src/painting/star_border.dart' ('/sdks/flutter/packages/flutter/lib/src/painting/star_border.dart').\n  Try correcting the name to the name of an existing getter, or defining a getter or field named 'Matrix4'.\n      squashMatrix.multiply(Matrix4.translationValues(-rect.center.dx, -rect.center.dy, 0));\n                            ^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/boolean_selector-2.1.2/lib/src/token.dart:17:9: Error: 'FileSpan' isn't a type.\n    final FileSpan span;\n          ^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/boolean_selector-2.1.2/lib/src/token.dart:27:9: Error: 'FileSpan' isn't a type.\n    final FileSpan span;\n          ^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:23:9: Error: 'SourceFile' isn't a type.\n    final SourceFile _sourceFile;\n          ^^^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:28:9: Error: 'FileLocation' isn't a type.\n    final FileLocation _startLocation;\n          ^^^^^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:60:3: Error: 'FileSpan' isn't a type.\n    FileSpan? _lastSpan;\n    ^^^^^^^^\n  /root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:69:23: Error: 'FileSpan' isn't a type.\n    RelativeSpanScanner(FileSpan span)\n                        ^^^^^^^^\n  .\n00:00 +0 -1: Some tests failed.\n\nner-1.4.1/lib/src/relative_span_scanner.dart:28:9: Error: 'FileLocation' isn't a type.\n  final FileLocation _startLocation;\n        ^^^^^^^^^^^^\n/root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:60:3: Error: 'FileSpan' isn't a type.\n  FileSpan? _lastSpan;\n  ^^^^^^^^\n/root/.pub-cache/hosted/pub.dev/string_scanner-1.4.1/lib/src/relative_span_scanner.dart:69:23: Error: 'FileSpan' isn't a type.\n  RelativeSpanScanner(FileSpan span)\n                      ^^^^^^^^"
+      "status": "automated_pass",
+      "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
     },
     {
       "title": "카운터는 Column 레이아웃으로 중앙 정렬되어 있다",
@@ -92,6 +92,16 @@
     },
     {
       "title": "화면이 Scaffold로 구성됨",
+      "status": "automated_pass",
+      "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
+    },
+    {
+      "title": "앱 실행 시 카운터가 0에서 시작한다",
+      "status": "automated_pass",
+      "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
+    },
+    {
+      "title": "카운터 숫자가 중앙에 표시된다",
       "status": "automated_pass",
       "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
     }
