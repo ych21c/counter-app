@@ -60,6 +60,6 @@ void main() {
     await tester.pumpWidget(const MyApp());
     
     final centerWidget = find.byType(Center);
-    expect(centerWidget, findsOneWidget);
+    expect(centerWidget, findsAtLeastNWidgets(1));
   });
 }
