@@ -154,6 +154,36 @@
       "title": "카운터와 버튼이 수직으로 중앙에 배치되어 있다",
       "status": "automated_pass",
       "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
+    },
+    {
+      "title": "앱 실행 시 초기값 0이 화면 중앙에 표시된다",
+      "status": "automated_pass",
+      "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
+    },
+    {
+      "title": "증가 버튼이 화면에 표시되고 누를 수 있다",
+      "status": "automated_pass",
+      "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
+    },
+    {
+      "title": "화면이 Scaffold로 구성되어 있다",
+      "status": "automated_pass",
+      "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
+    },
+    {
+      "title": "카운터 숫자가 큰 폰트 크기로 표시된다",
+      "status": "automated_pass",
+      "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
+    },
+    {
+      "title": "카운터와 버튼이 중앙에 수직으로 배치되어 있다",
+      "status": "automated_pass",
+      "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
+    },
+    {
+      "title": "버튼을 10번 누르면 카운터가 10까지 정상 증가한다",
+      "status": "automated_pass",
+      "note": "test/qa_scenarios_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨"
     }
   ]
 }
