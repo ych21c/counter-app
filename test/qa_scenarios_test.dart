@@ -51,10 +51,10 @@ void main() {
 
   testWidgets('화면 배경색이 흰색이다', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
-
+    
     final scaffold = find.byType(Scaffold);
     expect(scaffold, findsOneWidget);
-
+    
     final scaffoldWidget = tester.widget<Scaffold>(scaffold);
     expect(scaffoldWidget.backgroundColor, const Color(0xFFFFFFFF));
   });

@@ -215,3 +215,22 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Flutter/Dart (이 저장소는 실제로 Flutter 프로젝트인데, 레포 생성 시 항상
+# Python gitignore 템플릿이 붙어서 .dart_tool/ 등이 안 빠져 있었다 — implement의
+# git add -A가 빌드 캐시/바이너리를 계속 주워 담아서 매 PR마다 병합 충돌이
+#났다. 실제로 여러 PR에서 재현됨.)
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+*.iml
+.idea/
+
+# QA(Firebase Test Lab)가 남기는 산출물 — 오케스트레이터가 /workspace에서
+# 직접 서빙하는 파일들이라 git에 커밋될 필요가 없다.
+qa_recording.mp4
+.qa_screenshots/
+.qa-clone
