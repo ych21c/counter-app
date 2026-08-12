@@ -191,7 +191,8 @@ void main() {
       expect(card, findsWidgets);
       
       final cardPosition = tester.getCenter(card.first);
-      final screenCenter = tester.binding.window.physicalSize.center(Offset.zero);
+      final logicalSize = tester.view.physicalSize / tester.view.devicePixelRatio;
+      final screenCenter = Offset(logicalSize.width / 2, logicalSize.height / 2);
       
       expect(cardPosition.dx, closeTo(screenCenter.dx, 50));
     });
