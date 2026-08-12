@@ -99,14 +99,12 @@ void main() {
       expect(find.text('3'), findsOneWidget);
       expect(find.text('+1'), findsWidgets);
 
-      // 리셋 버튼 찾기 및 클릭
-      final resetButton = find.byType(ElevatedButton);
-      expect(resetButton, findsWidgets);
-      
-      // 'RESET' 텍스트가 있는 버튼 찾아 클릭
-      final resetButtonWithText = find.widgetWithText(ElevatedButton, 'RESET');
-      expect(resetButtonWithText, findsOneWidget);
-      await tester.tap(resetButtonWithText);
+      // 리셋 버튼 찾기 및 클릭 (OutlinedButton.icon with label '초기화')
+      final resetButtonText = find.text('초기화');
+      expect(resetButtonText, findsOneWidget);
+      await tester.ensureVisible(resetButtonText);
+      await tester.pumpAndSettle();
+      await tester.tap(resetButtonText);
       await tester.pump();
 
       // 카운터가 0으로 초기화되었는지 확인
@@ -140,7 +138,8 @@ void main() {
 
       // 앱이 정상적으로 렌더링되는지 확인
       expect(find.byType(AppBar), findsOneWidget);
-      expect(find.byType(SafeArea), findsOneWidget);
+      // Scaffold 내부 SafeArea + 명시적 SafeArea = 2개 이상
+      expect(find.byType(SafeArea), findsWidgets);
     });
 
     testWidgets('여러 번 작업 후 히스토리 목록이 올바르게 표시된다', (WidgetTester tester) async {
@@ -161,8 +160,8 @@ void main() {
       expect(find.text('작업 히스토리'), findsOneWidget);
       expect(find.byType(ListView), findsWidgets);
 
-      // 각 작업의 결과(1, 2, 3, 4, 5)가 히스토리에 표시되어야 함
-      expect(find.text('1'), findsWidgets); // 최소 2개 이상 (카운터와 히스토리)
+      // 첫 번째 증가 결과 '결과: 1'이 히스토리에 표시되어야 함
+      expect(find.text('결과: 1'), findsWidgets);
     });
 
     testWidgets('음수 카운터도 히스토리에 기록된다', (WidgetTester tester) async {
