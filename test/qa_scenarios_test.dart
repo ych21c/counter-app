@@ -17,8 +17,8 @@ void main() {
       // 카운터 값 표시 (0으로 초기화)
       expect(find.text('0'), findsOneWidget);
 
-      // 버튼들 존재 확인
-      expect(find.byType(ElevatedButton), findsWidgets);
+      // 버튼들 존재 확인 (FloatingActionButton으로 구현됨)
+      expect(find.byType(FloatingActionButton), findsWidgets);
 
       // 배경색이 설정되어야 함
       final scaffold = find.byType(Scaffold);
@@ -110,12 +110,11 @@ void main() {
       await tester.tap(find.byIcon(Icons.add));
       await tester.pump();
 
-      // 히스토리 섹션이 있어야 함 (ListView, Text 등으로 렌더링)
+      // 히스토리 섹션이 있어야 함 (ListView로 렌더링)
       expect(find.byType(ListView), findsOneWidget);
 
-      // 히스토리에는 작업 기록이 있어야 함 (최소 하나의 기록)
-      final historyItems = find.byType(ListTile);
-      expect(historyItems, findsWidgets);
+      // 히스토리에는 작업 기록이 있어야 함 (최소 하나의 결과 텍스트)
+      expect(find.textContaining('결과:'), findsWidgets);
     });
 
     testWidgets('여러 번 증감 후 히스토리가 누적되어야 함', (WidgetTester tester) async {
@@ -136,9 +135,8 @@ void main() {
       // 최종 값은 1
       expect(find.text('1'), findsOneWidget);
 
-      // 히스토리 항목들이 여러 개 있어야 함
-      final historyItems = find.byType(ListTile);
-      expect(historyItems, findsWidgets);
+      // 히스토리 항목들이 여러 개 있어야 함 (결과 텍스트가 3개)
+      expect(find.textContaining('결과:'), findsNWidgets(3));
     });
 
     testWidgets('디자인된 색상 스킴이 적용되어야 함', (WidgetTester tester) async {
@@ -177,8 +175,8 @@ void main() {
     testWidgets('버튼들이 Material 스타일로 구현되어야 함', (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
-      // ElevatedButton (증가/감소 버튼)
-      expect(find.byType(ElevatedButton), findsWidgets);
+      // FloatingActionButton (증가/감소 버튼)
+      expect(find.byType(FloatingActionButton), findsWidgets);
 
       // OutlinedButton (리셋 버튼)
       expect(find.byType(OutlinedButton), findsOneWidget);
