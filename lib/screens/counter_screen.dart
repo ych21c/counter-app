@@ -92,10 +92,8 @@ class _CounterScreenState extends State<CounterScreen>
               children: [
                 _buildCounterCard(),
                 const SizedBox(height: 32),
-                if (_history.isNotEmpty) ...[
-                  _buildActionLog(),
-                  const SizedBox(height: 24),
-                ],
+                _buildActionLog(),
+                const SizedBox(height: 24),
                 _buildButtonRow(),
                 const SizedBox(height: 24),
                 _buildResetButton(),
@@ -184,7 +182,7 @@ class _CounterScreenState extends State<CounterScreen>
         mainAxisSize: MainAxisSize.min,
         children: [
           const Text(
-            '액션 로그',
+            '작업 히스토리',
             style: TextStyle(
               fontSize: 10,
               color: _textHint,
@@ -193,37 +191,43 @@ class _CounterScreenState extends State<CounterScreen>
             ),
           ),
           const SizedBox(height: 6),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _history.length,
-            itemBuilder: (context, index) {
-              final entry = _history[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      entry.action,
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: Color(0xFF374151),
+          if (_history.isEmpty)
+            const Text(
+              '아직 기록이 없습니다',
+              style: TextStyle(fontSize: 11, color: _textHint),
+            )
+          else
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: _history.length,
+              itemBuilder: (context, index) {
+                final entry = _history[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        entry.action,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: Color(0xFF374151),
+                        ),
                       ),
-                    ),
-                    Text(
-                      '→ ${entry.result}',
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: _primary,
-                        fontWeight: FontWeight.w600,
+                      Text(
+                        '결과: ${entry.result}',
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: _primary,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
+                    ],
+                  ),
+                );
+              },
+            ),
         ],
       ),
     );
@@ -238,6 +242,7 @@ class _CounterScreenState extends State<CounterScreen>
           icon: Icons.remove,
           backgroundColor: _danger,
           onPressed: _decrement,
+          heroTag: 'decrement_fab',
         ),
         const SizedBox(width: 24),
         _buildFab(
@@ -245,6 +250,7 @@ class _CounterScreenState extends State<CounterScreen>
           icon: Icons.add,
           backgroundColor: _primary,
           onPressed: _increment,
+          heroTag: 'increment_fab',
         ),
       ],
     );
@@ -255,21 +261,18 @@ class _CounterScreenState extends State<CounterScreen>
     required IconData icon,
     required Color backgroundColor,
     required VoidCallback onPressed,
+    required Object heroTag,
   }) {
     return Column(
       children: [
-        ElevatedButton(
+        FloatingActionButton(
           onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: backgroundColor,
-            foregroundColor: Colors.white,
-            minimumSize: const Size(64, 64),
-            maximumSize: const Size(64, 64),
-            padding: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            elevation: 4,
+          backgroundColor: backgroundColor,
+          foregroundColor: Colors.white,
+          heroTag: heroTag,
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Icon(icon, size: 28),
         ),
@@ -288,7 +291,7 @@ class _CounterScreenState extends State<CounterScreen>
   Widget _buildResetButton() {
     return OutlinedButton.icon(
       onPressed: _reset,
-      icon: const Icon(Icons.refresh, size: 16),
+      icon: const Icon(Icons.restart_alt, size: 16),
       label: const Text('초기화'),
       style: OutlinedButton.styleFrom(
         foregroundColor: _textSecondary,
