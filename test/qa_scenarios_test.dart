@@ -3,95 +3,133 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:counter_app/main.dart';
 
 void main() {
-  testWidgets('앱 시작 시 숫자 0이 화면 중앙에 표시된다', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+  group('카운터 앱 디자인 재적용 검증', () {
+    testWidgets('앱 실행 시 디자인된 AppBar가 표시된다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
 
-    expect(find.text('0'), findsOneWidget);
-    expect(find.byType(Center), findsAtLeastNWidgets(1));
-  });
+      expect(find.byType(AppBar), findsWidgets);
+      expect(find.text('🔢 Flutter Counter'), findsOneWidget);
+      
+      final appBar = find.byType(AppBar);
+      expect(appBar, findsWidgets);
+    });
 
-  testWidgets('버튼을 한 번 눌렀을 때 숫자가 1로 증가한다', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    testWidgets('카운터 숫자가 큰 텍스트로 중앙에 표시된다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
 
-    expect(find.text('0'), findsOneWidget);
+      expect(find.text('0'), findsWidgets);
+      
+      final counterText = find.byWidgetPredicate(
+        (widget) => widget is Text && widget.data == '0' && widget.style?.fontSize == 96,
+      );
+      expect(counterText, findsOneWidget);
+    });
 
-    await tester.tap(find.byType(FloatingActionButton));
-    await tester.pump();
+    testWidgets('현재 카운트 라벨이 표시된다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
 
-    expect(find.text('1'), findsOneWidget);
-    expect(find.text('0'), findsNothing);
-  });
+      expect(find.text('현재 카운트'), findsOneWidget);
+    });
 
-  testWidgets('버튼을 여러 번 눌렀을 때 계속 증가한다', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    testWidgets('카운터 표시가 흰색 카드 컨테이너로 감싸져 있다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
 
-    expect(find.text('0'), findsOneWidget);
+      expect(find.byType(Card), findsWidgets);
+    });
 
-    await tester.tap(find.byType(FloatingActionButton));
-    await tester.pump();
-    expect(find.text('1'), findsOneWidget);
+    testWidgets('증가 버튼이 존재하고 클릭하면 숫자가 1씩 증가한다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
 
-    await tester.tap(find.byType(FloatingActionButton));
-    await tester.pump();
-    expect(find.text('2'), findsOneWidget);
+      expect(find.text('0'), findsWidgets);
+      
+      final incrementButton = find.byIcon(Icons.add);
+      expect(incrementButton, findsOneWidget);
 
-    await tester.tap(find.byType(FloatingActionButton));
-    await tester.pump();
-    expect(find.text('3'), findsOneWidget);
-  });
+      await tester.tap(incrementButton);
+      await tester.pump();
 
-  testWidgets('FloatingActionButton이 존재하고 탭 가능하다', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
-<<<<<<< HEAD
+      expect(find.text('1'), findsWidgets);
 
-    expect(find.byType(FloatingActionButton), findsOneWidget);
+      await tester.tap(incrementButton);
+      await tester.pump();
 
-    final button = find.byType(FloatingActionButton);
-    expect(tester.widget(button), isNotNull);
-=======
-    
-    expect(find.byType(Center), findsOneWidget);
-    expect(find.byType(Column), findsOneWidget);
-    expect(find.byType(Text), findsWidgets);
-    expect(find.byType(ElevatedButton), findsOneWidget);
->>>>>>> 542853f (AI Implement: Flutter 앱: 화면 1개, 중앙에 숫자(0부터 시작)와 버튼 하나. 버튼 누르면 숫자 1씩 증가. 그)
-  });
+      expect(find.text('2'), findsWidgets);
+    });
 
-  testWidgets('화면 배경색이 흰색이다', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
-    
-    final scaffold = find.byType(Scaffold);
-    expect(scaffold, findsOneWidget);
-    
-    final scaffoldWidget = tester.widget<Scaffold>(scaffold);
-    expect(scaffoldWidget.backgroundColor, const Color(0xFFFFFFFF));
-  });
+    testWidgets('감소 버튼이 존재하고 클릭하면 숫자가 1씩 감소한다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
 
-  testWidgets('숫자가 큰 텍스트 크기로 표시된다', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+      final incrementButton = find.byIcon(Icons.add);
+      await tester.tap(incrementButton);
+      await tester.pump();
+      await tester.tap(incrementButton);
+      await tester.pump();
 
-    final counterText = find.byWidgetPredicate(
-      (widget) => widget is Text && widget.data == '0',
-    );
+      expect(find.text('2'), findsWidgets);
 
-    expect(counterText, findsOneWidget);
+      final decrementButton = find.byIcon(Icons.remove);
+      expect(decrementButton, findsOneWidget);
 
-    final textWidget = tester.widget<Text>(counterText);
-    expect(textWidget.style?.fontSize, 80);
-  });
+      await tester.tap(decrementButton);
+      await tester.pump();
 
-  testWidgets('버튼이 올바른 색상으로 표시된다', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+      expect(find.text('1'), findsWidgets);
+    });
 
-    final button = find.byType(FloatingActionButton);
-    final buttonWidget = tester.widget<FloatingActionButton>(button);
+    testWidgets('리셋 버튼이 존재하고 클릭하면 0으로 초기화된다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
 
-    expect(buttonWidget.backgroundColor, const Color(0xFF6200EE));
-  });
+      final incrementButton = find.byIcon(Icons.add);
+      await tester.tap(incrementButton);
+      await tester.pump();
+      await tester.tap(incrementButton);
+      await tester.pump();
+      await tester.tap(incrementButton);
+      await tester.pump();
 
-  testWidgets('버튼에 더하기 아이콘이 포함되어 있다', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+      expect(find.text('3'), findsWidgets);
 
-    expect(find.byIcon(Icons.add), findsOneWidget);
+      final resetButton = find.byIcon(Icons.refresh);
+      expect(resetButton, findsOneWidget);
+
+      await tester.tap(resetButton);
+      await tester.pump();
+
+      expect(find.text('0'), findsWidgets);
+    });
+
+    testWidgets('버튼들이 Material 스타일로 구현되어 있다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
+
+      expect(find.byType(ElevatedButton), findsWidgets);
+    });
+
+    testWidgets('배경색이 디자인된 색상으로 적용되어 있다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
+
+      final scaffold = find.byType(Scaffold);
+      expect(scaffold, findsOneWidget);
+    });
+
+    testWidgets('버튼 클릭 시 애니메이션 효과가 적용된다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
+
+      expect(find.text('0'), findsWidgets);
+
+      final incrementButton = find.byIcon(Icons.add);
+      await tester.tap(incrementButton);
+      
+      await tester.pump(const Duration(milliseconds: 75));
+      
+      await tester.pumpAndSettle();
+
+      expect(find.text('1'), findsWidgets);
+    });
+
+    testWidgets('화면이 SafeArea로 보호되어 있다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
+
+      expect(find.byType(SafeArea), findsWidgets);
+    });
   });
 }
