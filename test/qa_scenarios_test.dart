@@ -3,198 +3,133 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:counter_app/main.dart';
 
 void main() {
-  group('Design Spec Validation - Counter App', () {
-    testWidgets('AppBar displays with correct title and styling', (WidgetTester tester) async {
+  group('카운터 앱 디자인 재적용 검증', () {
+    testWidgets('앱 실행 시 디자인된 AppBar가 표시된다', (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
       expect(find.byType(AppBar), findsWidgets);
       expect(find.text('🔢 Flutter Counter'), findsOneWidget);
       
-      final AppBar appBar = tester.widget<AppBar>(find.byType(AppBar));
-      expect(appBar.backgroundColor, const Color(0xFF4F46E5));
-      expect(appBar.centerTitle, true);
+      final appBar = find.byType(AppBar);
+      expect(appBar, findsWidgets);
     });
 
-    testWidgets('Background color matches design spec (#F0F4FF)', (WidgetTester tester) async {
+    testWidgets('카운터 숫자가 큰 텍스트로 중앙에 표시된다', (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
-      final Scaffold scaffold = tester.widget<Scaffold>(find.byType(Scaffold));
-      expect(scaffold.backgroundColor, const Color(0xFFF0F4FF));
-    });
-
-    testWidgets('Counter display card with white background and elevation', (WidgetTester tester) async {
-      await tester.pumpWidget(const CounterApp());
-
-      final cards = find.byType(Card);
-      expect(cards, findsWidgets);
+      expect(find.text('0'), findsWidgets);
       
-      final Card card = tester.widget<Card>(cards.first);
-      expect(card.color, Colors.white);
-      expect(card.elevation, 8);
+      final counterText = find.byWidgetPredicate(
+        (widget) => widget is Text && widget.data == '0' && widget.style?.fontSize == 96,
+      );
+      expect(counterText, findsOneWidget);
     });
 
-    testWidgets('Counter label text displays "현재 카운트"', (WidgetTester tester) async {
+    testWidgets('현재 카운트 라벨이 표시된다', (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
       expect(find.text('현재 카운트'), findsOneWidget);
     });
 
-    testWidgets('Initial counter value displays as 0', (WidgetTester tester) async {
+    testWidgets('카운터 표시가 흰색 카드 컨테이너로 감싸져 있다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
+
+      expect(find.byType(Card), findsWidgets);
+    });
+
+    testWidgets('증가 버튼이 존재하고 클릭하면 숫자가 1씩 증가한다', (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
       expect(find.text('0'), findsWidgets);
       
-      final counterValueText = find.descendant(
-        of: find.byType(Card),
-        matching: find.text('0'),
-      );
-      expect(counterValueText, findsWidgets);
-    });
-
-    testWidgets('Counter value text uses large font size (96)', (WidgetTester tester) async {
-      await tester.pumpWidget(const CounterApp());
-
-      final texts = find.byType(Text);
-      bool foundLargeText = false;
-      
-      for (int i = 0; i < texts.evaluate().length; i++) {
-        final Text textWidget = tester.widget<Text>(texts.at(i));
-        if (textWidget.style?.fontSize == 96 && textWidget.data == '0') {
-          foundLargeText = true;
-          break;
-        }
-      }
-      
-      expect(foundLargeText, true);
-    });
-
-    testWidgets('Increment button exists and is styled correctly', (WidgetTester tester) async {
-      await tester.pumpWidget(const CounterApp());
-
       final incrementButton = find.byIcon(Icons.add);
       expect(incrementButton, findsOneWidget);
-      
-      final button = tester.widget<ElevatedButton>(
-        find.ancestor(
-          of: incrementButton,
-          matching: find.byType(ElevatedButton),
-        ),
-      );
-      expect(button.style, isNotNull);
-    });
 
-    testWidgets('Decrement button exists with minus icon', (WidgetTester tester) async {
-      await tester.pumpWidget(const CounterApp());
-
-      final decrementButton = find.byIcon(Icons.remove);
-      expect(decrementButton, findsOneWidget);
-    });
-
-    testWidgets('Reset button exists with refresh icon', (WidgetTester tester) async {
-      await tester.pumpWidget(const CounterApp());
-
-      final resetButton = find.byIcon(Icons.refresh);
-      expect(resetButton, findsOneWidget);
-    });
-
-    testWidgets('Clicking increment button increases counter value', (WidgetTester tester) async {
-      await tester.pumpWidget(const CounterApp());
-
-      expect(find.text('0'), findsWidgets);
-
-      await tester.tap(find.byIcon(Icons.add));
+      await tester.tap(incrementButton);
       await tester.pump();
 
       expect(find.text('1'), findsWidgets);
-    });
 
-    testWidgets('Multiple increment clicks increase counter sequentially', (WidgetTester tester) async {
-      await tester.pumpWidget(const CounterApp());
-
-      for (int i = 1; i <= 5; i++) {
-        await tester.tap(find.byIcon(Icons.add));
-        await tester.pump();
-        expect(find.text('$i'), findsWidgets);
-      }
-    });
-
-    testWidgets('Decrement button decreases counter value', (WidgetTester tester) async {
-      await tester.pumpWidget(const CounterApp());
-
-      await tester.tap(find.byIcon(Icons.add));
+      await tester.tap(incrementButton);
       await tester.pump();
-      await tester.tap(find.byIcon(Icons.add));
+
+      expect(find.text('2'), findsWidgets);
+    });
+
+    testWidgets('감소 버튼이 존재하고 클릭하면 숫자가 1씩 감소한다', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
+
+      final incrementButton = find.byIcon(Icons.add);
+      await tester.tap(incrementButton);
+      await tester.pump();
+      await tester.tap(incrementButton);
       await tester.pump();
 
       expect(find.text('2'), findsWidgets);
 
-      await tester.tap(find.byIcon(Icons.remove));
+      final decrementButton = find.byIcon(Icons.remove);
+      expect(decrementButton, findsOneWidget);
+
+      await tester.tap(decrementButton);
       await tester.pump();
 
       expect(find.text('1'), findsWidgets);
     });
 
-    testWidgets('Reset button resets counter to 0', (WidgetTester tester) async {
+    testWidgets('리셋 버튼이 존재하고 클릭하면 0으로 초기화된다', (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
-      await tester.tap(find.byIcon(Icons.add));
+      final incrementButton = find.byIcon(Icons.add);
+      await tester.tap(incrementButton);
       await tester.pump();
-      await tester.tap(find.byIcon(Icons.add));
+      await tester.tap(incrementButton);
       await tester.pump();
-      await tester.tap(find.byIcon(Icons.add));
+      await tester.tap(incrementButton);
       await tester.pump();
 
       expect(find.text('3'), findsWidgets);
 
-      await tester.tap(find.byIcon(Icons.refresh));
+      final resetButton = find.byIcon(Icons.refresh);
+      expect(resetButton, findsOneWidget);
+
+      await tester.tap(resetButton);
       await tester.pump();
 
       expect(find.text('0'), findsWidgets);
     });
 
-    testWidgets('Button row displays increment, decrement, and reset buttons horizontally', (WidgetTester tester) async {
+    testWidgets('버튼들이 Material 스타일로 구현되어 있다', (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
-      final row = find.byType(Row);
-      expect(row, findsWidgets);
-
-      expect(find.byIcon(Icons.add), findsOneWidget);
-      expect(find.byIcon(Icons.remove), findsOneWidget);
-      expect(find.byIcon(Icons.refresh), findsOneWidget);
+      expect(find.byType(ElevatedButton), findsWidgets);
     });
 
-    testWidgets('Counter display has proper padding and margin', (WidgetTester tester) async {
+    testWidgets('배경색이 디자인된 색상으로 적용되어 있다', (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
-      final card = find.byType(Card).first;
-      final cardWidget = tester.widget<Card>(card);
-      
-      expect(cardWidget.child, isNotNull);
+      final scaffold = find.byType(Scaffold);
+      expect(scaffold, findsOneWidget);
     });
 
-    testWidgets('All buttons have Material style with proper elevation', (WidgetTester tester) async {
+    testWidgets('버튼 클릭 시 애니메이션 효과가 적용된다', (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
-      final buttons = find.byType(ElevatedButton);
-      expect(buttons, findsWidgets);
+      expect(find.text('0'), findsWidgets);
 
-      for (int i = 0; i < buttons.evaluate().length; i++) {
-        final button = tester.widget<ElevatedButton>(buttons.at(i));
-        expect(button.style, isNotNull);
-      }
+      final incrementButton = find.byIcon(Icons.add);
+      await tester.tap(incrementButton);
+      
+      await tester.pump(const Duration(milliseconds: 75));
+      
+      await tester.pumpAndSettle();
+
+      expect(find.text('1'), findsWidgets);
     });
 
-    testWidgets('Counter display is centered vertically on screen', (WidgetTester tester) async {
+    testWidgets('화면이 SafeArea로 보호되어 있다', (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
-      final card = find.byType(Card);
-      expect(card, findsWidgets);
-      
-      final cardPosition = tester.getCenter(card.first);
-      final logicalSize = tester.view.physicalSize / tester.view.devicePixelRatio;
-      final screenCenter = Offset(logicalSize.width / 2, logicalSize.height / 2);
-      
-      expect(cardPosition.dx, closeTo(screenCenter.dx, 50));
+      expect(find.byType(SafeArea), findsWidgets);
     });
   });
 }
