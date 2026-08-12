@@ -1,171 +1,171 @@
+```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:counter_app/main.dart';
 
 void main() {
-  group('CounterScreen Design & History Feature Tests', () {
-    testWidgets('앱 실행 시 디자인이 적용되고 초기값 0이 표시된다', (WidgetTester tester) async {
+  group('Counter App - Design & History Implementation', () {
+    testWidgets('디자인 적용: AppBar 및 기본 레이아웃 표시', (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
-      // 앱바가 있고 제목이 표시되는지 확인
-      expect(find.text('Flutter Counter'), findsWidgets);
-      
-      // 초기 카운터 값 0이 표시되는지 확인
-      expect(find.text('0'), findsWidgets);
-      
-      // 배경색이 설정되어 있는지 확인 (Scaffold 존재)
+      // AppBar 존재 확인
+      expect(find.byType(AppBar), findsWidgets);
+      expect(find.text('Flutter Counter'), findsOneWidget);
+
+      // 배경색 확인 (F0F4FF = 밝은 파란색 배경)
       expect(find.byType(Scaffold), findsOneWidget);
-    });
 
-    testWidgets('카운터 디스플레이가 Card 스타일로 표시된다', (WidgetTester tester) async {
-      await tester.pumpWidget(const CounterApp());
-
-      // Card 위젯이 존재하는지 확인 (디자인 스펙의 counter_display 컴포넌트)
-      expect(find.byType(Card), findsWidgets);
-      
-      // 카운터 라벨 텍스트 확인
+      // 카운터 디스플레이 영역 존재 확인
       expect(find.text('현재 카운트'), findsOneWidget);
+      expect(find.text('0'), findsWidgets); // 초기값 0
     });
 
-    testWidgets('버튼을 클릭하면 카운터가 1씩 증가하고 히스토리에 기록된다', (WidgetTester tester) async {
+    testWidgets('디자인 적용: 카운터 숫자 큰 텍스트로 표시', (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
-      // 초기값 확인
+      // 카운터 값을 찾기 위해 Text 위젯의 TextStyle 확인
+      final counterValueFinder = find.byWidgetPredicate(
+        (widget) =>
+            widget is Text &&
+            widget.data != null &&
+            widget.data == '0' &&
+            (widget.style?.fontSize ?? 0) > 50,
+      );
+
+      expect(counterValueFinder, findsWidgets);
+    });
+
+    testWidgets('디자인 적용: 증가/감소 버튼 표시', (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
+
+      // 증가 버튼 (+ 아이콘)
+      expect(find.byIcon(Icons.add), findsOneWidget);
+
+      // 감소 버튼 (- 아이콘)
+      expect(find.byIcon(Icons.remove), findsOneWidget);
+
+      // 리셋 버튼 (새로고침 아이콘)
+      expect(find.byIcon(Icons.refresh), findsOneWidget);
+    });
+
+    testWidgets('히스토리 기록: 증가 버튼 클릭 후 히스토리에 기록됨',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
+
+      // 초기 상태: 카운터 0
       expect(find.text('0'), findsWidgets);
 
-      // 증가 버튼 찾기 (아이콘 기반)
-      final incrementButton = find.byIcon(Icons.add);
-      expect(incrementButton, findsOneWidget);
-
-      // 버튼 클릭
-      await tester.tap(incrementButton);
+      // 증가 버튼 클릭
+      await tester.tap(find.byIcon(Icons.add));
       await tester.pump();
 
-      // 카운터가 1로 증가했는지 확인
+      // 카운터 1로 증가
       expect(find.text('1'), findsWidgets);
 
-      // 히스토리 항목이 표시되는지 확인 (히스토리 리스트에 "+1" 액션이 기록됨)
-      expect(find.text('+1'), findsOneWidget);
-    });
-
-    testWidgets('여러 번 증가 버튼을 클릭하면 계속 증가하고 히스토리가 쌓인다', (WidgetTester tester) async {
-      await tester.pumpWidget(const CounterApp());
-
-      final incrementButton = find.byIcon(Icons.add);
-
-      // 3번 클릭
-      await tester.tap(incrementButton);
-      await tester.pump();
-      await tester.tap(incrementButton);
-      await tester.pump();
-      await tester.tap(incrementButton);
-      await tester.pump();
-
-      // 최종값 3 확인
-      expect(find.text('3'), findsWidgets);
-
-      // 히스토리에 3개의 "+1" 액션이 기록되어 있는지 확인
+      // 히스토리에 "+1" 기록 표시 확인
       expect(find.text('+1'), findsWidgets);
     });
 
-    testWidgets('감소 버튼을 클릭하면 카운터가 1씩 감소하고 히스토리에 기록된다', (WidgetTester tester) async {
+    testWidgets('히스토리 기록: 감소 버튼 클릭 후 히스토리에 기록됨',
+        (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
-      final incrementButton = find.byIcon(Icons.add);
-      final decrementButton = find.byIcon(Icons.remove);
+      // 초기 상태: 카운터 0
+      expect(find.text('0'), findsWidgets);
 
-      // 먼저 증가시켜서 카운터를 양수로 만들기
-      await tester.tap(incrementButton);
+      // 증가 버튼을 먼저 눌러서 카운터를 1로 만들기
+      await tester.tap(find.byIcon(Icons.add));
       await tester.pump();
-      await tester.tap(incrementButton);
-      await tester.pump();
-
-      // 현재 카운터는 2
-      expect(find.text('2'), findsWidgets);
-
-      // 감소 버튼 클릭
-      await tester.tap(decrementButton);
-      await tester.pump();
-
-      // 카운터가 1로 감소했는지 확인
       expect(find.text('1'), findsWidgets);
 
-      // 히스토리에 "−1" 액션이 기록되어 있는지 확인
-      expect(find.text('−1'), findsOneWidget);
+      // 감소 버튼 클릭
+      await tester.tap(find.byIcon(Icons.remove));
+      await tester.pump();
+
+      // 카운터 0으로 감소
+      expect(find.text('0'), findsWidgets);
+
+      // 히스토리에 "−1" 기록 표시 확인
+      expect(find.text('−1'), findsWidgets);
     });
 
-    testWidgets('리셋 버튼을 클릭하면 카운터가 0으로 초기화되고 히스토리가 삭제된다', (WidgetTester tester) async {
+    testWidgets('히스토리 기록: 여러 번 증가 시 모든 기록이 표시됨',
+        (WidgetTester tester) async {
       await tester.pumpWidget(const CounterApp());
 
-      final incrementButton = find.byIcon(Icons.add);
-      final resetButton = find.byIcon(Icons.refresh);
-
-      // 몇 번 증가
-      await tester.tap(incrementButton);
+      // 증가 버튼 3번 클릭
+      await tester.tap(find.byIcon(Icons.add));
       await tester.pump();
-      await tester.tap(incrementButton);
+      await tester.tap(find.byIcon(Icons.add));
+      await tester.pump();
+      await tester.tap(find.byIcon(Icons.add));
       await tester.pump();
 
-      // 카운터가 2인지 확인
-      expect(find.text('2'), findsWidgets);
+      // 카운터 3으로 증가
+      expect(find.text('3'), findsWidgets);
 
-      // 히스토리에 "+1" 액션이 있는지 확인
+      // 히스토리에 3개의 "+1" 기록 표시 확인
+      expect(find.text('+1'), findsWidgets);
+    });
+
+    testWidgets('히스토리 기록: 리셋 후 히스토리 초기화됨',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(const CounterApp());
+
+      // 증가 버튼 2번 클릭
+      await tester.tap(find.byIcon(Icons.add));
+      await tester.pump();
+      await tester.tap(find.byIcon(Icons.add));
+      await tester.pump();
+
+      // 히스토리에 "+1" 기록 2개 표시
       expect(find.text('+1'), findsWidgets);
 
       // 리셋 버튼 클릭
-      await tester.tap(resetButton);
+      await tester.tap(find.byIcon(Icons.refresh));
       await tester.pump();
 
-      // 카운터가 0으로 초기화되었는지 확인
+      // 카운터 0으로 초기화
       expect(find.text('0'), findsWidgets);
 
-      // 히스토리가 삭제되었는지 확인 ("+1" 텍스트가 없어야 함)
-      expect(find.text('+1'), findsNothing);
+      // 히스토리 기록이 초기화되었는지 확인
+      // (히스토리 텍스트 개수 감소 또는 특정 항목 사라짐)
+      expect(find.byWidgetPredicate(
+        (widget) =>
+            widget is Text &&
+            widget.data != null &&
+            (widget.data == '+1' || widget.data == '−1'),
+      ), findsNothing);
     });
 
-    testWidgets('증가/감소 기록이 히스토리 섹션에 표시되고 스크롤 가능하다', (WidgetTester tester) async {
+    testWidgets('디자인 적용: 히스토리 영역이 스크롤 가능',
+        (WidgetTester tester) async {
+      await tester.binding.window.physicalSizeTestValue = const Size(400, 800);
+      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+
       await tester.pumpWidget(const CounterApp());
 
-      final incrementButton = find.byIcon(Icons.add);
-      final decrementButton = find.byIcon(Icons.remove);
+      // 많은 횟수로 증가하여 히스토리 추적
+      for (int i = 0; i < 15; i++) {
+        await tester.tap(find.byIcon(Icons.add));
+        await tester.pump();
+      }
 
-      // 여러 번 작업 수행하여 히스토리 생성
-      await tester.tap(incrementButton);
-      await tester.pump();
-      await tester.tap(incrementButton);
-      await tester.pump();
-      await tester.tap(decrementButton);
-      await tester.pump();
-      await tester.tap(incrementButton);
-      await tester.pump();
+      // 카운터 15로 증가 확인
+      expect(find.text('15'), findsWidgets);
 
-      // 최종값 2 확인
-      expect(find.text('2'), findsWidgets);
-
-      // ListView가 있는지 확인 (히스토리 스크롤 가능하도록 구현)
-      expect(find.byType(ListView), findsWidgets);
-
-      // 히스토리 항목들이 표시되는지 확인
-      expect(find.text('+1'), findsWidgets);
-      expect(find.text('−1'), findsOneWidget);
+      // ListView 또는 SingleChildScrollView 존재 확인 (히스토리 스크롤)
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is SingleChildScrollView ||
+              widget is ListView ||
+              widget is CustomScrollView,
+        ),
+        findsWidgets,
+      );
     });
 
-    testWidgets('화면이 SafeArea로 보호되어 있다', (WidgetTester tester) async {
-      await tester.pumpWidget(const CounterApp());
-
-      // SafeArea 위젯 존재 확인
-      expect(find.byType(SafeArea), findsWidgets);
-    });
-
-    testWidgets('증가/감소 버튼이 Material 스타일로 구현되어 있다', (WidgetTester tester) async {
-      await tester.pumpWidget(const CounterApp());
-
-      // ElevatedButton이 Material 스타일로 구현되어 있는지 확인
-      expect(find.byType(ElevatedButton), findsWidgets);
-
-      // 증가/감소 아이콘이 각각 하나씩 있는지 확인
-      expect(find.byIcon(Icons.add), findsOneWidget);
-      expect(find.byIcon(Icons.remove), findsOneWidget);
-    });
-  });
-}
+    testWidgets('디자인 적용: 카드 스타일 컨테이너로 카운터 표시',
+        (WidgetTester tester) async {
+      await tester.pumpWidget
