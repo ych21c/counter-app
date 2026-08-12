@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+class _HistoryEntry {
+  final String action;
+  final int result;
+  const _HistoryEntry({required this.action, required this.result});
+}
+
 class CounterScreen extends StatefulWidget {
   const CounterScreen({super.key});
 
@@ -10,6 +16,7 @@ class CounterScreen extends StatefulWidget {
 class _CounterScreenState extends State<CounterScreen>
     with SingleTickerProviderStateMixin {
   int _counter = 0;
+  final List<_HistoryEntry> _history = [];
   late AnimationController _animController;
   late Animation<double> _scaleAnim;
 
@@ -40,12 +47,22 @@ class _CounterScreenState extends State<CounterScreen>
     super.dispose();
   }
 
-  void _increment() => _update(_counter + 1);
-  void _decrement() => _update(_counter - 1);
-  void _reset() => _update(0);
+  void _increment() => _recordAndUpdate(_counter + 1, '+1');
+  void _decrement() => _recordAndUpdate(_counter - 1, '−1');
 
-  void _update(int value) {
-    setState(() => _counter = value);
+  void _reset() {
+    setState(() {
+      _counter = 0;
+      _history.clear();
+    });
+    _animController.forward().then((_) => _animController.reverse());
+  }
+
+  void _recordAndUpdate(int value, String action) {
+    setState(() {
+      _counter = value;
+      _history.add(_HistoryEntry(action: action, result: value));
+    });
     _animController.forward().then((_) => _animController.reverse());
   }
 
@@ -75,6 +92,10 @@ class _CounterScreenState extends State<CounterScreen>
               children: [
                 _buildCounterCard(),
                 const SizedBox(height: 32),
+                if (_history.isNotEmpty) ...[
+                  _buildActionLog(),
+                  const SizedBox(height: 24),
+                ],
                 _buildButtonRow(),
                 const SizedBox(height: 24),
                 _buildResetButton(),
@@ -145,6 +166,63 @@ class _CounterScreenState extends State<CounterScreen>
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildActionLog() {
+    // Show at most the 5 most recent entries, matching the wireframe's log panel.
+    final entries = _history.length <= 5
+        ? _history
+        : _history.sublist(_history.length - 5);
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF9FAFB),
+        border: Border.all(color: _border),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            '액션 로그',
+            style: TextStyle(
+              fontSize: 10,
+              color: _textHint,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1,
+            ),
+          ),
+          const SizedBox(height: 6),
+          ...entries.map(
+            (entry) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    entry.action,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: Color(0xFF374151),
+                    ),
+                  ),
+                  Text(
+                    '→ ${entry.result}',
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: _primary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

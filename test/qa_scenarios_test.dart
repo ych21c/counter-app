@@ -146,6 +146,8 @@ void main() {
 
       expect(find.text('3'), findsWidgets);
 
+      // The action log adds height; scroll reset button into view before tapping.
+      await tester.ensureVisible(find.byIcon(Icons.refresh));
       await tester.tap(find.byIcon(Icons.refresh));
       await tester.pump();
 
