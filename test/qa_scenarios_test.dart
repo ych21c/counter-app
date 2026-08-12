@@ -1,4 +1,3 @@
-```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:counter_app/main.dart';
@@ -140,13 +139,16 @@ void main() {
 
     testWidgets('디자인 적용: 히스토리 영역이 스크롤 가능',
         (WidgetTester tester) async {
-      await tester.binding.window.physicalSizeTestValue = const Size(400, 800);
-      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
+      tester.view.physicalSize = const Size(400, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
 
       await tester.pumpWidget(const CounterApp());
 
       // 많은 횟수로 증가하여 히스토리 추적
       for (int i = 0; i < 15; i++) {
+        await tester.ensureVisible(find.byIcon(Icons.add));
         await tester.tap(find.byIcon(Icons.add));
         await tester.pump();
       }
@@ -168,4 +170,14 @@ void main() {
 
     testWidgets('디자인 적용: 카드 스타일 컨테이너로 카운터 표시',
         (WidgetTester tester) async {
-      await tester.pumpWidget
+      await tester.pumpWidget(const CounterApp());
+
+      // Card 위젯 존재 확인 (카운터 디스플레이가 카드로 감싸짐)
+      expect(find.byType(Card), findsWidgets);
+
+      // 카운터 레이블과 숫자 함께 표시
+      expect(find.text('현재 카운트'), findsOneWidget);
+      expect(find.text('0'), findsWidgets);
+    });
+  });
+}
