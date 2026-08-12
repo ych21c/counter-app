@@ -147,8 +147,8 @@ void main() {
       // 최종 카운터 값 2 확인
       expect(find.text('2'), findsOneWidget);
 
-      // 히스토리에 "+1" 2번, "−1" 1번 기록 확인
-      expect(find.text('+1'), findsNWidgets(2));
+      // 히스토리에 "+1" 3번, "−1" 1번 기록 확인
+      expect(find.text('+1'), findsNWidgets(3));
       expect(find.text('−1'), findsOneWidget);
 
       // 최종 결과값 2 확인
