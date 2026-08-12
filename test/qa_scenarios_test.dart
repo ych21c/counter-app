@@ -42,11 +42,19 @@ void main() {
 
   testWidgets('FloatingActionButton이 존재하고 탭 가능하다', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
+<<<<<<< HEAD
 
     expect(find.byType(FloatingActionButton), findsOneWidget);
 
     final button = find.byType(FloatingActionButton);
     expect(tester.widget(button), isNotNull);
+=======
+    
+    expect(find.byType(Center), findsOneWidget);
+    expect(find.byType(Column), findsOneWidget);
+    expect(find.byType(Text), findsWidgets);
+    expect(find.byType(ElevatedButton), findsOneWidget);
+>>>>>>> 542853f (AI Implement: Flutter 앱: 화면 1개, 중앙에 숫자(0부터 시작)와 버튼 하나. 버튼 누르면 숫자 1씩 증가. 그)
   });
 
   testWidgets('화면 배경색이 흰색이다', (WidgetTester tester) async {
