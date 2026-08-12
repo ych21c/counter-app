@@ -1,4 +1,3 @@
-```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:counter_app/main.dart';
@@ -159,4 +158,14 @@ void main() {
     });
 
     testWidgets('증가/감소 버튼이 Material 스타일로 구현되어 있다', (WidgetTester tester) async {
-      await t
+      await tester.pumpWidget(const CounterApp());
+
+      // ElevatedButton이 Material 스타일로 구현되어 있는지 확인
+      expect(find.byType(ElevatedButton), findsWidgets);
+
+      // 증가/감소 아이콘이 각각 하나씩 있는지 확인
+      expect(find.byIcon(Icons.add), findsOneWidget);
+      expect(find.byIcon(Icons.remove), findsOneWidget);
+    });
+  });
+}

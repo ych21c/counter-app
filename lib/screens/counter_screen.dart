@@ -71,7 +71,7 @@ class _CounterScreenState extends State<CounterScreen>
     return Scaffold(
       backgroundColor: _background,
       appBar: AppBar(
-        title: const Text('🔢 Flutter Counter'),
+        title: const Text('Flutter Counter'),
         backgroundColor: _primary,
         foregroundColor: Colors.white,
         centerTitle: true,
@@ -171,11 +171,6 @@ class _CounterScreenState extends State<CounterScreen>
   }
 
   Widget _buildActionLog() {
-    // Show at most the 5 most recent entries, matching the wireframe's log panel.
-    final entries = _history.length <= 5
-        ? _history
-        : _history.sublist(_history.length - 5);
-
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -186,6 +181,7 @@ class _CounterScreenState extends State<CounterScreen>
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           const Text(
             '액션 로그',
@@ -197,30 +193,36 @@ class _CounterScreenState extends State<CounterScreen>
             ),
           ),
           const SizedBox(height: 6),
-          ...entries.map(
-            (entry) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    entry.action,
-                    style: const TextStyle(
-                      fontSize: 11,
-                      color: Color(0xFF374151),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: _history.length,
+            itemBuilder: (context, index) {
+              final entry = _history[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      entry.action,
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: Color(0xFF374151),
+                      ),
                     ),
-                  ),
-                  Text(
-                    '→ ${entry.result}',
-                    style: const TextStyle(
-                      fontSize: 11,
-                      color: _primary,
-                      fontWeight: FontWeight.w600,
+                    Text(
+                      '→ ${entry.result}',
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: _primary,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
+                  ],
+                ),
+              );
+            },
           ),
         ],
       ),
