@@ -47,7 +47,7 @@ void main() {
 
       expect(find.text('1'), findsWidgets);
       expect(find.text('−1'), findsOneWidget);
-      expect(find.text('결과: 1'), findsOneWidget);
+      expect(find.text('결과: 1'), findsNWidgets(2)); // +1,+1,−1 → 결과: 1이 두 번(1번째 증가, 감소 후) 기록된다
       expect(find.text('결과: 2'), findsOneWidget);
     });
 
