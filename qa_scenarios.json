@@ -717,6 +717,36 @@
       "status": "automated_pass",
       "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
       "group": "카운터 앱 - 히스토리 표시 검증"
+    },
+    {
+      "title": "초기 상태: 히스토리 비어있음",
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 히스토리 표시"
+    },
+    {
+      "title": "증가 버튼 클릭 시 히스토리에 기록 표시",
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 히스토리 표시"
+    },
+    {
+      "title": "감소 버튼 클릭 시 히스토리에 기록 표시",
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 히스토리 표시"
+    },
+    {
+      "title": "여러 번 클릭 시 모든 기록 표시",
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 히스토리 표시"
+    },
+    {
+      "title": "초기화 버튼 클릭 후 히스토리 비우기",
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 히스토리 표시"
     }
   ]
 }
