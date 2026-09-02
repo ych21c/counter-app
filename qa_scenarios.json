@@ -650,7 +650,7 @@
       "title": "+ 버튼 클릭으로 카운트 증가 및 히스토리 기록",
       "status": "automated_pass",
       "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
-      "group": "카운터 앱 - 초기 상태, 증가/감소, 히스토리"
+      "group": "카운터 앱 - 디자인 재작업 (히스토리 포함)"
     },
     {
       "title": "여러 번 증가 시 히스토리 누적 표시",
@@ -662,13 +662,31 @@
       "title": "− 버튼 클릭으로 카운트 감소 및 히스토리 기록",
       "status": "automated_pass",
       "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
-      "group": "카운터 앱 - 초기 상태, 증가/감소, 히스토리"
+      "group": "카운터 앱 - 디자인 재작업 (히스토리 포함)"
     },
     {
       "title": "초기화 버튼으로 카운트와 히스토리 완전 초기화",
       "status": "automated_pass",
       "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
       "group": "카운터 앱 - 초기 상태, 증가/감소, 히스토리"
+    },
+    {
+      "title": "앱 최초 실행 시 초기 상태",
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 디자인 재작업 (히스토리 포함)"
+    },
+    {
+      "title": "복수 작업 히스토리 표시",
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 디자인 재작업 (히스토리 포함)"
+    },
+    {
+      "title": "초기화 버튼으로 카운터와 히스토리 리셋",
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 디자인 재작업 (히스토리 포함)"
     }
   ]
 }
