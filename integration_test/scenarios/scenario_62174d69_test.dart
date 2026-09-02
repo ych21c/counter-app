@@ -88,5 +88,5 @@ void main() {
     expect(find.text('0').evaluate().isNotEmpty, true);
     expect(find.text('아직 기록이 없습니다'), findsOneWidget);
   });
-});
+  });
 }
