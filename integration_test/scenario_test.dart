@@ -7,6 +7,7 @@ import 'scenarios/scenario_311e0ca7_test.dart' as s0;
 import 'scenarios/scenario_5941f9a5_test.dart' as s1;
 import 'scenarios/scenario_62174d69_test.dart' as s2;
 import 'scenarios/scenario_b0193a5b_test.dart' as s3;
+import 'scenarios/scenario_cfe315d4_test.dart' as s4;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -14,4 +15,5 @@ void main() {
   s1.main();
   s2.main();
   s3.main();
+  s4.main();
 }
