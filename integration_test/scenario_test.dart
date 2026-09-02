@@ -3,12 +3,13 @@
 // 수정하세요.
 import 'package:integration_test/integration_test.dart';
 
-import 'scenarios/scenario_213e2a02_test.dart' as s0;
-import 'scenarios/scenario_311e0ca7_test.dart' as s1;
-import 'scenarios/scenario_5941f9a5_test.dart' as s2;
-import 'scenarios/scenario_62174d69_test.dart' as s3;
-import 'scenarios/scenario_b0193a5b_test.dart' as s4;
-import 'scenarios/scenario_cfe315d4_test.dart' as s5;
+import 'scenarios/scenario_0e1212d0_test.dart' as s0;
+import 'scenarios/scenario_213e2a02_test.dart' as s1;
+import 'scenarios/scenario_311e0ca7_test.dart' as s2;
+import 'scenarios/scenario_5941f9a5_test.dart' as s3;
+import 'scenarios/scenario_62174d69_test.dart' as s4;
+import 'scenarios/scenario_b0193a5b_test.dart' as s5;
+import 'scenarios/scenario_cfe315d4_test.dart' as s6;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -18,4 +19,5 @@ void main() {
   s3.main();
   s4.main();
   s5.main();
+  s6.main();
 }

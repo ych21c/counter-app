@@ -567,8 +567,9 @@
     },
     {
       "title": "초기화 버튼 클릭 시 카운터 0으로 리셋 및 히스토리 초기화",
-      "status": "fail",
-      "note": "생성된 테스트(test/qa_scenarios_test.dart)가 실행됐지만 실패했습니다:\ncolorSpace: ColorSpace.sRGB), size: 11.0, dependencies: [DefaultSelectionStyle,\nDefaultTextStyle, MediaQuery]),\n          ]>\n   Which: is too many\n\nWhen the exception was thrown, this was the stack:\n#4      main.<anonymous closure>.<anonymous closure> (file:///workspace/30dcf5ed-qa-clone/test/qa_scenarios_test.dart:151:7)\n<asynchronous suspension>\n#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)\n<asynchronous suspension>\n#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1682:5)\n<asynchronous suspension>\n<asynchronous suspension>\n(elided one frame from package:stack_trace)\n\nThis was caught by the test expectation on the following line:\n  file:///workspace/30dcf5ed-qa-clone/test/qa_scenarios_test.dart line 151\nThe test description was:\n  증가와 감소를 섞어서 여러 번 클릭 시 모든 동작이 히스토리에 기록됨\n════════════════════════════════════════════════════════════════════════════════════════════════════\n00:00 +5 -1: 디자인 재적용 검증 - 카운터 앱 화면 및 히스토리 증가와 감소를 섞어서 여러 번 클릭 시 모든 동작이 히스토리에 기록됨 [E]\n  Test failed. See exception logs above.\n  The test description was: 증가와 감소를 섞어서 여러 번 클릭 시 모든 동작이 히스토리에 기록됨\n  \n00:00 +5 -1: 디자인 재적용 검증 - 카운터 앱 화면 및 히스토리 카운터 카드가 흰색 배경의 Card 위젯으로 표시됨\n00:00 +6 -1: 디자인 재적용 검증 - 카운터 앱 화면 및 히스토리 FloatingActionButton으로 증가/감소 버튼 구현됨\n00:00 +7 -1: 디자인 재적용 검증 - 카운터 앱 화면 및 히스토리 히스토리 섹션이 비어있을 때 초기 메시지 표시\n00:00 +8 -1: 디자인 재적용 검증 - 카운터 앱 화면 및 히스토리 버튼 클릭 후 히스토리 섹션에 동작과 결과 표시\n00:00 +9 -1: Some tests failed."
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 기본 기능 및 히스토리"
     },
     {
       "title": "증가와 감소를 섞어서 여러 번 클릭 시 모든 동작이 히스토리에 기록됨",
@@ -813,6 +814,30 @@
       "status": "automated_pass",
       "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
       "group": "카운터 앱 - 디자인 및 히스토리 검증"
+    },
+    {
+      "title": "앱 초기 실행 시 카운터 0 표시",
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 기본 기능 및 히스토리"
+    },
+    {
+      "title": "증가 버튼 클릭 시 카운터 1 증가 및 히스토리 기록",
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 기본 기능 및 히스토리"
+    },
+    {
+      "title": "증가 버튼 5회 클릭 시 카운터 5 증가 및 히스토리 누적",
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 기본 기능 및 히스토리"
+    },
+    {
+      "title": "감소 버튼 클릭 시 카운터 1 감소 및 히스토리 기록",
+      "status": "automated_pass",
+      "note": "integration_test/scenario_test.dart 실행 테스트 통과 + Firebase Test Lab Robo 테스트로 자동 확인됨",
+      "group": "카운터 앱 - 기본 기능 및 히스토리"
     }
   ]
 }
